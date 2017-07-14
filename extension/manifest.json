@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "Changelogger",
+    "version": "1.0",
+    "description": "Gets changelogs for updated addons",
+    "applications": {
+        "gecko": {
+            "id": "changelogger@r01"
+        }
+    },
+    "icons": {
+        "48": "icons/icon-48.png",
+        "96": "icons/icon-96.png"
+    },
+    "background": {
+        "scripts": ["background.js", "sanitize-html.min.js"]
+    },
+    "browser_action": {
+        "default_popup": "changelog.html",
+        "browser_style": true
+    },
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+    },
+    "permissions": [
+        "management",
+        "storage",
+        "notifications",
+        "https://addons.mozilla.org/api/v3/addons/addon/*",
+        "webRequest"
+    ]
+}

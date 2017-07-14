@@ -1,0 +1,40 @@
+ body {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+.item {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+img {
+    height: 20px;
+    width: 20px;
+}
+.version {
+    background-color: #1E88E5;
+    color: white;
+}
+.link:before, .link:after {
+    content: "\0000a0";
+}
+.name {
+    align-items: center;
+    display: flex;
+}
+.changelog {
+    border-left: 1px solid #757575;
+    color: #757575;
+    font-size: 1.25rem;
+    margin: 20px;
+    padding-left: 5px;
+    white-space: pre-wrap;
+}
+.changelog a {
+    color: #757575;
+    text-decoration: underline;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
