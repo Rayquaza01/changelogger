@@ -27,6 +27,7 @@ function getChangelog(extension, details) {
         if (versionDetail.status === 200 && versionDetail.readyState === 4) {
             var versionDetails = JSON.parse(versionDetail.response);
             browser.storage.local.get().then((res) => {
+                console.log(versionDetails)
                 var releaseNotes = versionDetails.release_notes[details.default_locale];
                 // Sanitize the html. Shouldn't be nessecary because it came straight from AMO, but just in case!
                 var clean = sanitizeHtml(releaseNotes, {
@@ -44,8 +45,7 @@ function getChangelog(extension, details) {
                     release_notes: clean,
                     url: details.url
                 });
-                // if (res.options.notification) {
-                if (true) {
+                if (res.options.notification) {
                     var title = [extension.name, "updated to version", extension.version].join(" ");
                     var text = sanitizeHtml(res.changelogs[0].release_notes, {
                         allowedTags: [],

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Changelogger",
-    "version": "1.0",
+    "version": "1.0.1",
     "description": "Gets changelogs for updated addons",
     "applications": {
         "gecko": {
@@ -17,7 +17,13 @@
     },
     "browser_action": {
         "default_popup": "changelog.html",
-        "browser_style": true
+        "browser_style": true,
+        "default_icon": "icons/icon.svg",
+        "theme_icons": [{
+            "light": "icons/icon-light.svg",
+            "dark": "icons/icon.svg",
+            "size": 16
+        }]
     },
     "options_ui": {
         "page": "options.html",
