@@ -28,7 +28,6 @@ async function main() {
         var links = dom.getElementsByTagName("a");
         for (var link of links) {
             var raw = decodeURIComponent(link.href);
-            console.log(raw);
             link.href = raw.match(/https?:\/\/outgoing\.prod\.mozaws\.net\/.*\/(https?:\/\/.*)/)[1];
         }
         var frag = document.createDocumentFragment();
