@@ -2,21 +2,11 @@ const baseUrl = "https://addons.mozilla.org/api/v3/addons/addon"
 
 async function setup() {
     var res = await browser.storage.local.get();
-    if (res.options === undefined) {
-        res.options = {};
-    }
-    if (res.options.badge === undefined) {
-        res.options.badge = true;
-    }
-    if (res.options.notification === undefined) {
-        res.options.notification = false;
-    }
-    if (res.options.max === undefined) {
-        res.options.max = 10;
-    }
-    if (res.changelogs === undefined) {
-        res.changelogs = [];
-    }
+    res.options = res.hasOwnProperty("options") ? res.options : {};
+    res.options.badge = res.options.hasOwnProperty("badge") ? res.options.badge : true;
+    res.options.notification = res.options.hasOwnProperty("notification") ? res.options.notification : false;
+    res.options.max = res.options.hasOwnProperty("max") ? res.options.max : 10;
+    res.changelogs = res.hasOwnProperty("changelogs") ? res.changelogs : [];
     browser.storage.local.set(res);
 }
 

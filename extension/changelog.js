@@ -3,6 +3,9 @@ const push = document.getElementById("push");
 async function main() {
     browser.browserAction.setBadgeText({text: ""});
     var res = await browser.storage.local.get();
+    if (res.changelogs.length === 0) {
+        push.innerText = "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated."
+    }
     for (var item of res.changelogs) {
         var container = document.createElement("div");
         container.className = "item";

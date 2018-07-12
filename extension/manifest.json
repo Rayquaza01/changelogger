@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Changelogger",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Gets changelogs for updated addons",
     "applications": {
         "gecko": {
@@ -13,7 +13,7 @@
         "96": "icons/icon-96.png"
     },
     "background": {
-        "scripts": ["background.js", "sanitize-html.min.js"]
+        "scripts": ["background.js"]
     },
     "browser_action": {
         "default_popup": "changelog.html",
