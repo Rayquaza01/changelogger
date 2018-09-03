@@ -30,20 +30,27 @@ async function getChangelog(extension, details) {
     let releaseNotes = versionDetails.release_notes.hasOwnProperty(ui_lang) ?
         versionDetails.release_notes[ui_lang] :
         versionDetails.release_notes[details.default_locale];
-    res.changelogs.unshift({
+    let item = {
         version: extension.version,
         icon: details.icon_url.split("?")[0],
         name: extension.name,
         release_notes: releaseNotes,
         url: details.url
-    });
+    };
+    // stringify objs to allow for comparison
+    let stringified_list = res.changelogs.map(JSON.stringify);
+    let stringified_item = JSON.stringify(item);
+    if (stringified_list.indexOf(stringified_item) !== -1) {
+        // if changelog appears more than once, remove it
+        stringified_list = stringified_list.filter(item => item !== stringified_item);
+        res.changelogs = stringified_list.map(JSON.parse);
+    }
+    res.changelogs.unshift(item);
     if (res.options.notification) {
-        let title = [extension.name, "updated to version", extension.version].join(" ");
-        let text = res.changelogs[0].release_notes;
         browser.notifications.create({
             type: "basic",
-            title: title,
-            message: text,
+            title: `${extension.name} updated to version ${extension.version}`,
+            message: res.changelogs[0].release_notes,
             iconUrl: res.changelogs[0].icon
         });
     }
