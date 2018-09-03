@@ -5,7 +5,7 @@ async function main() {
     const res = await browser.storage.local.get();
     if (res.changelogs.length === 0) {
         // message if no changelogs are saved yet
-        push.innerText = "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated."
+        push.innerText = "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated.";
     }
     let frag = document.createDocumentFragment();
     for (let item of res.changelogs) {

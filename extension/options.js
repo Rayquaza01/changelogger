@@ -19,8 +19,8 @@ async function save() {
             max: parseInt(max.value),
             ignore_no_changelogs: JSON.parse(ignore_no_changelogs.value)
         }
-    })
+    });
 }
 
-document.addEventListener("DOMContentLoaded", load)
-document.addEventListener("change", save)
+document.addEventListener("DOMContentLoaded", load);
+document.addEventListener("change", save);

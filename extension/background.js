@@ -1,4 +1,4 @@
-const baseUrl = "https://addons.mozilla.org/api/v3/addons/addon"
+const baseUrl = "https://addons.mozilla.org/api/v3/addons/addon";
 
 async function setup() {
     let res = await browser.storage.local.get();
@@ -19,7 +19,7 @@ async function getChangelog(extension, details) {
     // message if no release notes
     if (versionDetails.release_notes === null) {
         if (res.options.ignore_no_changelogs) {
-            return
+            return;
         } else {
             versionDetails.release_notes = {};
             versionDetails.release_notes[details.default_locale] = "No changelog found for this version.";
@@ -42,8 +42,7 @@ async function getChangelog(extension, details) {
     let stringified_item = JSON.stringify(item);
     if (stringified_list.indexOf(stringified_item) !== -1) {
         // if changelog appears more than once, remove it
-        stringified_list = stringified_list.filter(item => item !== stringified_item);
-        res.changelogs = stringified_list.map(JSON.parse);
+        res.changelogs = stringified_list.filter(item => item !== stringified_item).map(JSON.parse);
     }
     res.changelogs.unshift(item);
     if (res.options.notification) {
@@ -68,9 +67,9 @@ async function getInfo(extension) {
     let detail = await fetch(requestURL);
     let details = JSON.parse(await detail.text());
     if (extension.version === details.current_version.version) {
-        getChangelog(extension, details)
+        getChangelog(extension, details);
     }
 }
 
 browser.management.onInstalled.addListener(getInfo);
-browser.runtime.onInstalled.addListener(setup)
+browser.runtime.onInstalled.addListener(setup);
