@@ -1,21 +1,35 @@
 const baseUrl = "https://addons.mozilla.org/api/v3/addons/addon"
 
 async function setup() {
-    var res = await browser.storage.local.get();
+    let res = await browser.storage.local.get();
     res.options = res.hasOwnProperty("options") ? res.options : {};
     res.options.badge = res.options.hasOwnProperty("badge") ? res.options.badge : true;
     res.options.notification = res.options.hasOwnProperty("notification") ? res.options.notification : false;
     res.options.max = res.options.hasOwnProperty("max") ? res.options.max : 10;
+    res.options.ignore_no_changelogs = res.options.hasOwnProperty("ignore_no_changelogs") ? res.options.ignore_no_changelogs : false;
     res.changelogs = res.hasOwnProperty("changelogs") ? res.changelogs : [];
     browser.storage.local.set(res);
 }
 
 async function getChangelog(extension, details) {
-    var requestURL = [baseUrl, extension.id, "versions", details.current_version.id].join("/");
-    var versionDetail = await fetch(requestURL);
-    var versionDetails = JSON.parse(await versionDetail.text());
-    var res = await browser.storage.local.get();
-    var releaseNotes = versionDetails.release_notes[details.default_locale];
+    let requestURL = [baseUrl, extension.id, "versions", details.current_version.id].join("/");
+    let versionDetail = await fetch(requestURL);
+    let versionDetails = JSON.parse(await versionDetail.text());
+    let res = await browser.storage.local.get();
+    // message if no release notes
+    if (versionDetails.release_notes === null) {
+        if (res.options.ignore_no_changelogs) {
+            return
+        } else {
+            versionDetails.release_notes = {};
+            versionDetails.release_notes[details.default_locale] = "No changelog found for this version.";
+        }
+    }
+    // return release notes based on browser locale (if available) or extension default_locale
+    const ui_lang = browser.i18n.getUILanguage();
+    let releaseNotes = versionDetails.release_notes.hasOwnProperty(ui_lang) ?
+        versionDetails.release_notes[ui_lang] :
+        versionDetails.release_notes[details.default_locale];
     res.changelogs.unshift({
         version: extension.version,
         icon: details.icon_url.split("?")[0],
@@ -24,8 +38,8 @@ async function getChangelog(extension, details) {
         url: details.url
     });
     if (res.options.notification) {
-        var title = [extension.name, "updated to version", extension.version].join(" ");
-        var text = res.changelogs[0].release_notes;
+        let title = [extension.name, "updated to version", extension.version].join(" ");
+        let text = res.changelogs[0].release_notes;
         browser.notifications.create({
             type: "basic",
             title: title,
@@ -36,16 +50,16 @@ async function getChangelog(extension, details) {
     if (res.options.badge) {
         browser.browserAction.setBadgeText({text: "!"});
     }
-    if (res.changelogs.length > res.options.max) {
+    while (res.changelogs.length > res.options.max) {
         res.changelogs.pop();
     }
     browser.storage.local.set(res);
 }
 
 async function getInfo(extension) {
-    var requestURL = [baseUrl, extension.id].join("/");
-    var detail = await fetch(requestURL);
-    var details = JSON.parse(await detail.text());
+    let requestURL = [baseUrl, extension.id].join("/");
+    let detail = await fetch(requestURL);
+    let details = JSON.parse(await detail.text());
     if (extension.version === details.current_version.version) {
         getChangelog(extension, details)
     }
