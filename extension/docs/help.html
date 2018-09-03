@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Changelogger Help</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Changelogger Help</h1>
+</header>
+<h2 id="options">Options</h2>
+<blockquote>
+<h3 id="badge">Badge</h3>
+<blockquote>
+<p>True or false. Whether to display the badge on the toolbar icon. Default true.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h3 id="notification">Notification</h3>
+<blockquote>
+<p>True or false. Whether to display notifications when extensions update. Default false.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h3 id="max">Max</h3>
+<blockquote>
+<p>Number. The maximum number of changelogs to save at one time. Must be at least 1. Default 10.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h3 id="ignore-updates-without-changelogs">Ignore Updates Without Changelogs</h3>
+<blockquote>
+<p>True or false. Whether to ignore extension updates without changelogs. Default false.</p>
+</blockquote>
+</blockquote>
+<h2 id="what-counts-as-an-update">What counts as an update?</h2>
+<blockquote>
+<p>Changelogger triggers when an extension is installed or updated. It then checks if the installed version is the latest version on addons.mozilla.org.</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>If it is, it tries to fetch the changelog from AMO.</li>
+<li>If it isn’t (or if it’s a self distributed addon that’s not available on AMO), it does not look for a changelog.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>This way, you can manually install older or development versions of extensions without triggering Changelogger.<br />
+Changelogger looks for changelogs in (1) the browser’s locale and (2) the extension’s locale.</p>
+</blockquote>
+<h2 id="no-changelog-found-for-this-version">“No changelog found for this version”</h2>
+<blockquote>
+<p>Updates will be logged by Changelogger even if there was no changelog included with the update. You can change this by enabling “Ignore Updates Without Changelogs” in the options.</p>
+</blockquote>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://addons-server.readthedocs.io/en/latest/topics/api/addons.html">AMO API</a></li>
+<li><a href="https://github.com/Rayquaza01/Changelogger">Github Repository</a></li>
+</ul>
+</body>
+</html>

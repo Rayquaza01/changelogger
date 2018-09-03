@@ -1,12 +1,14 @@
 const badge = document.getElementById("badge");
 const notification = document.getElementById("notification");
 const max = document.getElementById("max");
+const ignore_no_changelogs = document.getElementById("ignore_no_changelogs");
 
 async function load() {
-    var res = await browser.storage.local.get("options");
+    const res = await browser.storage.local.get("options");
     badge.value = res.options.badge;
     notification.value = res.options.notification;
     max.value = res.options.max;
+    ignore_no_changelogs.value = res.options.ignore_no_changelogs;
 }
 
 async function save() {
@@ -14,7 +16,8 @@ async function save() {
         options: {
             badge: JSON.parse(badge.value),
             notification: JSON.parse(notification.value),
-            max: parseInt(max.value)
+            max: parseInt(max.value),
+            ignore_no_changelogs: JSON.parse(ignore_no_changelogs.value)
         }
     })
 }
