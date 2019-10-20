@@ -6,6 +6,7 @@ async function setup() {
     res.options.badge = res.options.hasOwnProperty("badge") ? res.options.badge : true;
     res.options.notification = res.options.hasOwnProperty("notification") ? res.options.notification : false;
     res.options.max = res.options.hasOwnProperty("max") ? res.options.max : 10;
+    res.options.theme = res.options.hasOwnProperty("theme") ? res.options.theme : "light";
     res.options.ignore_no_changelogs = res.options.hasOwnProperty("ignore_no_changelogs") ? res.options.ignore_no_changelogs : false;
     res.changelogs = res.hasOwnProperty("changelogs") ? res.changelogs : [];
     browser.storage.local.set(res);

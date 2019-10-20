@@ -3,6 +3,9 @@ const push = document.getElementById("push");
 async function main() {
     browser.browserAction.setBadgeText({text: ""});
     const res = await browser.storage.local.get();
+    if (res.options.theme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark")
+    }
     if (res.changelogs.length === 0) {
         // message if no changelogs are saved yet
         push.innerText = "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated.";
