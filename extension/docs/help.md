@@ -11,6 +11,9 @@
 > ### Max
 > > Number. The maximum number of changelogs to save at one time. Must be at least 1. Default 10.
 
+> ### Theme
+> > Light or Dark. The theme to use for the popup. Default light.
+
 > ### Ignore Updates Without Changelogs
 > > True or false. Whether to ignore extension updates without changelogs. Default false.
 

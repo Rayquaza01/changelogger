@@ -9,7 +9,9 @@ How to use:
 Options:
  * Badge (True or False) - whether to display a badge on the toolbar icon when an extension updates.
  * Notification (True or False) - whether to create a notification when an extension updates.
- * Max (number): How many changelogs to save at a time
+ * Max (number) - How many changelogs to save at a time
+ * Theme (Light or Dark) - whether to use a light or dark theme
+ * Ignore updates without changelogs - whether to ignore updates that don't have changelogs
 
 Permissions:
  * management - required to detect when any extension updates
