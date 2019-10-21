@@ -1,19 +1,20 @@
 const hasProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
 const baseUrl = "https://addons.mozilla.org/api/v3/addons/addon";
 
+function defaultValues(object, settings) {
+    for (let key in settings) {
+        if (!hasProperty(object, key)) {
+            object[key] = settings[key];
+        }
+    }
+    return object;
+}
+
 async function setup() {
     let res = await browser.storage.local.get();
-    res.options = hasProperty(res, "options") ? res.options : {};
-    res.options.badge = hasProperty(res.options, "badge") ? res.options.badge : true;
-    res.options.notification = hasProperty(res.options, "notification")
-        ? res.options.notification
-        : false;
-    res.options.max = hasProperty(res.options, "max") ? res.options.max : 10;
-    res.options.theme = hasProperty(res.options, "theme") ? res.options.theme : "light";
-    res.options.ignore_no_changelogs = hasProperty(res.options, "ignore_no_changelogs")
-        ? res.options.ignore_no_changelogs
-        : false;
-    res.changelogs = hasProperty(res, "changelogs") ? res.changelogs : [];
+    let defaults = await (await fetch("options.json")).json();
+    res = defaultValues(res, defaults);
+    res.options = defaultValues(res.options, defaults.options);
     browser.storage.local.set(res);
 }
 
