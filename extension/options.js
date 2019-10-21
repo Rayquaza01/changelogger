@@ -9,7 +9,7 @@ async function load() {
     badge.value = res.options.badge;
     notification.value = res.options.notification;
     max.value = res.options.max;
-    theme.value = res.options.theme
+    theme.value = res.options.theme;
     ignore_no_changelogs.value = res.options.ignore_no_changelogs;
 }
 

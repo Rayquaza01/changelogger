@@ -1,19 +1,26 @@
+const hasProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
 const baseUrl = "https://addons.mozilla.org/api/v3/addons/addon";
 
 async function setup() {
     let res = await browser.storage.local.get();
-    res.options = res.hasOwnProperty("options") ? res.options : {};
-    res.options.badge = res.options.hasOwnProperty("badge") ? res.options.badge : true;
-    res.options.notification = res.options.hasOwnProperty("notification") ? res.options.notification : false;
-    res.options.max = res.options.hasOwnProperty("max") ? res.options.max : 10;
-    res.options.theme = res.options.hasOwnProperty("theme") ? res.options.theme : "light";
-    res.options.ignore_no_changelogs = res.options.hasOwnProperty("ignore_no_changelogs") ? res.options.ignore_no_changelogs : false;
-    res.changelogs = res.hasOwnProperty("changelogs") ? res.changelogs : [];
+    res.options = hasProperty(res, "options") ? res.options : {};
+    res.options.badge = hasProperty(res.options, "badge") ? res.options.badge : true;
+    res.options.notification = hasProperty(res.options, "notification")
+        ? res.options.notification
+        : false;
+    res.options.max = hasProperty(res.options, "max") ? res.options.max : 10;
+    res.options.theme = hasProperty(res.options, "theme") ? res.options.theme : "light";
+    res.options.ignore_no_changelogs = hasProperty(res.options, "ignore_no_changelogs")
+        ? res.options.ignore_no_changelogs
+        : false;
+    res.changelogs = hasProperty(res, "changelogs") ? res.changelogs : [];
     browser.storage.local.set(res);
 }
 
 async function getChangelog(extension, details) {
-    let requestURL = [baseUrl, extension.id, "versions", details.current_version.id].join("/");
+    let requestURL = [baseUrl, extension.id, "versions", details.current_version.id].join(
+        "/"
+    );
     let versionDetail = await fetch(requestURL);
     let versionDetails = JSON.parse(await versionDetail.text());
     let res = await browser.storage.local.get();
@@ -23,14 +30,15 @@ async function getChangelog(extension, details) {
             return;
         } else {
             versionDetails.release_notes = {};
-            versionDetails.release_notes[details.default_locale] = "No changelog found for this version.";
+            versionDetails.release_notes[details.default_locale] =
+                "No changelog found for this version.";
         }
     }
     // return release notes based on browser locale (if available) or extension default_locale
     const ui_lang = browser.i18n.getUILanguage();
-    let releaseNotes = versionDetails.release_notes.hasOwnProperty(ui_lang) ?
-        versionDetails.release_notes[ui_lang] :
-        versionDetails.release_notes[details.default_locale];
+    let releaseNotes = hasProperty(versionDetails.release_notes, ui_lang)
+        ? versionDetails.release_notes[ui_lang]
+        : versionDetails.release_notes[details.default_locale];
     let item = {
         version: extension.version,
         icon: details.icon_url.split("?")[0],
@@ -43,7 +51,9 @@ async function getChangelog(extension, details) {
     let stringified_item = JSON.stringify(item);
     if (stringified_list.indexOf(stringified_item) !== -1) {
         // if changelog appears more than once, remove it
-        res.changelogs = stringified_list.filter(item => item !== stringified_item).map(JSON.parse);
+        res.changelogs = stringified_list
+            .filter(item => item !== stringified_item)
+            .map(JSON.parse);
     }
     res.changelogs.unshift(item);
     if (res.options.notification) {
@@ -55,7 +65,7 @@ async function getChangelog(extension, details) {
         });
     }
     if (res.options.badge) {
-        browser.browserAction.setBadgeText({text: "!"});
+        browser.browserAction.setBadgeText({ text: "!" });
     }
     while (res.changelogs.length > res.options.max) {
         res.changelogs.pop();
