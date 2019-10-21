@@ -22,6 +22,10 @@ body {
     font-size: 20px;
 }
 
+#push {
+    color: var(--changelog--font-color);
+}
+
 .item {
     border: 1px solid var(--item-border-color);
     margin: 5px;
