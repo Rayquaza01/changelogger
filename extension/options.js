@@ -7,7 +7,7 @@ const ignore_no_changelogs = document.getElementById("ignore_no_changelogs");
 async function load() {
     const res = await browser.storage.local.get("options");
     if (res.options.theme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
+        document.documentElement.dataset.theme = "dark";
     }
     badge.value = res.options.badge;
     notification.value = res.options.notification;
@@ -17,7 +17,7 @@ async function load() {
 }
 
 async function save() {
-    browser.storage.local.set({
+    await browser.storage.local.set({
         options: {
             badge: JSON.parse(badge.value),
             notification: JSON.parse(notification.value),
@@ -25,11 +25,8 @@ async function save() {
             theme: theme.value,
             ignore_no_changelogs: JSON.parse(ignore_no_changelogs.value)
         }
-    }).then(() => {
-        if (theme.value === "dark") {document.documentElement.setAttribute("data-theme", "dark").load()};
-        if (theme.value === "light") {document.documentElement.removeAttribute("data-theme").load()};
     });
-
+    document.documentElement.dataset.theme = theme.value;
 }
 
 document.addEventListener("DOMContentLoaded", load);
