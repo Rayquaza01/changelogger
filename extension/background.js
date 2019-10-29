@@ -10,12 +10,21 @@ function defaultValues(object, settings) {
     return object;
 }
 
-async function setup() {
+async function setup(info) {
     let res = await browser.storage.local.get();
     let defaults = await (await fetch("options.json")).json();
     res = defaultValues(res, defaults);
     res.options = defaultValues(res.options, defaults.options);
     browser.storage.local.set(res);
+
+    if (info.reason === "install" || info.reason === "update") {
+        let manifest = browser.runtime.getManifest();
+        await getInfo({
+            name: manifest.name,
+            id: "changelogger@r01",
+            version: manifest.version
+        });
+    }
 }
 
 async function getChangelog(extension, details) {
