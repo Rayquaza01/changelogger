@@ -35,20 +35,23 @@ async function main() {
         changelog.className = "changelog";
         // use dom parser to remove redirects from links
         let dom = new DOMParser().parseFromString(item.release_notes, "text/html");
-        let links = dom.getElementsByTagName("a");
-        for (let link of links) {
+        let links = [...dom.querySelectorAll("a")];
+        links.map(link => {
             let raw = decodeURIComponent(link.href);
-            link.href = raw.match(
-                /https?:\/\/outgoing\.prod\.mozaws\.net\/.*\/(https?:\/\/.*)/
-            )[1];
-        }
+            if (raw.startsWith("https://outgoing.prod.mozaws.net")) {
+                link.href = raw.match(
+                    /https?:\/\/outgoing\.prod\.mozaws\.net\/.*\/(https?:\/\/.*)/
+                )[1];
+            }
+            return link;
+        });
         while (dom.body.firstChild) {
             let child = dom.body.removeChild(dom.body.firstChild);
-            changelog.append(child);
+            changelog.appendChild(child);
         }
-        container.append(changelog);
+        container.appendChild(changelog);
     }
-    push.append(frag);
+    push.appendChild(frag);
 }
 
 document.addEventListener("DOMContentLoaded", main);
