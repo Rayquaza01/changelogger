@@ -11,11 +11,13 @@ function defaultValues(object, settings) {
 }
 
 async function setup(info) {
-    let res = await browser.storage.local.get();
+    let resLocal = await browser.storage.local.get();
+    let resSync = await browser.storage.sync.get();
     let defaults = await (await fetch("options.json")).json();
-    res = defaultValues(res, defaults);
+    res = defaultValues({...resSync, ...resLocal}, defaults);
     res.options = defaultValues(res.options, defaults.options);
-    browser.storage.local.set(res);
+    browser.storage.local.set(res.changelogs);
+    browser.storage.sync.set(res.options);
 
     if (info.reason === "install" || info.reason === "update") {
         let manifest = browser.runtime.getManifest();
@@ -33,10 +35,11 @@ async function getChangelog(extension, details) {
     );
     let versionDetail = await fetch(requestURL);
     let versionDetails = JSON.parse(await versionDetail.text());
-    let res = await browser.storage.local.get();
+    let resSync = await browser.storage.sync.get();
+    let resLocal = await browser.storage.local.get();
     // message if no release notes
     if (versionDetails.release_notes === null) {
-        if (res.options.ignore_no_changelogs) {
+        if (resSyncSync.options.ignore_no_changelogs) {
             return;
         } else {
             versionDetails.release_notes = {};
@@ -57,30 +60,30 @@ async function getChangelog(extension, details) {
         url: details.url
     };
     // stringify objs to allow for comparison
-    let stringified_list = res.changelogs.map(JSON.stringify);
+    let stringified_list = resLocal.changelogs.map(JSON.stringify);
     let stringified_item = JSON.stringify(item);
     if (stringified_list.indexOf(stringified_item) !== -1) {
         // if changelog appears more than once, remove it
-        res.changelogs = stringified_list
+        resLocal.changelogs = stringified_list
             .filter(item => item !== stringified_item)
             .map(JSON.parse);
     }
-    res.changelogs.unshift(item);
-    if (res.options.notification) {
+    resLocal.changelogs.unshift(item);
+    if (resSync.options.notification) {
         browser.notifications.create({
             type: "basic",
             title: `${extension.name} updated to version ${extension.version}`,
-            message: res.changelogs[0].release_notes,
-            iconUrl: res.changelogs[0].icon
+            message: resLocal.changelogs[0].release_notes,
+            iconUrl: resLocal.changelogs[0].icon
         });
     }
-    if (res.options.badge) {
+    if (resSync.options.badge) {
         browser.browserAction.setBadgeText({ text: "!" });
     }
-    while (res.changelogs.length > res.options.max) {
-        res.changelogs.pop();
+    while (resLocal.changelogs.length > resSync.options.max) {
+        resLocal.changelogs.pop();
     }
-    browser.storage.local.set(res);
+    browser.storage.local.set(resLocal);
 }
 
 async function getInfo(extension) {
