@@ -3,7 +3,7 @@ const push = document.getElementById("push");
 async function main() {
     browser.browserAction.setBadgeText({ text: "" });
     const resLocal = await browser.storage.local.get();
-    const resSync = await browser.storage.local.get();
+    const resSync = await browser.storage.sync.get();
     if (resSync.options.theme === "dark") {
         document.documentElement.setAttribute("data-theme", "dark");
     }
