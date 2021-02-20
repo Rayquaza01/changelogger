@@ -13,7 +13,7 @@ function defaultValues(object, settings) {
 async function setup(info) {
     let resLocal = await browser.storage.local.get();
     let resSync = await browser.storage.sync.get();
-    let defaults = await (await fetch("options.json")).json();
+    let defaults = await (await fetch("defaults.json")).json();
     res = defaultValues({...resSync, ...resLocal}, defaults);
     res.options = defaultValues(res.options, defaults.options);
     browser.storage.local.set(res.changelogs);
