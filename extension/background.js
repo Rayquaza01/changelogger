@@ -16,8 +16,8 @@ async function setup(info) {
     let defaults = await (await fetch("defaults.json")).json();
     res = defaultValues({...resSync, ...resLocal}, defaults);
     res.options = defaultValues(res.options, defaults.options);
-    browser.storage.local.set(res.changelogs);
-    browser.storage.sync.set(res.options);
+    browser.storage.local.set({changelogs: res.changelogs});
+    browser.storage.sync.set({options: res.options});
 
     if (info.reason === "install" || info.reason === "update") {
         let manifest = browser.runtime.getManifest();
