@@ -1,12 +1,10 @@
 const push = document.getElementById("push");
+const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
 async function main() {
     browser.browserAction.setBadgeText({ text: "" });
     const resLocal = await browser.storage.local.get();
-    const resSync = await browser.storage.sync.get();
-    if (resSync.options.theme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-    }
+    setColorScheme(colorScheme);
     if (resLocal.changelogs.length === 0) {
         // message if no changelogs are saved yet
         push.innerText =
@@ -55,4 +53,10 @@ async function main() {
     push.appendChild(frag);
 }
 
+function setColorScheme(e) {
+    e.matches ? document.documentElement.dataset.theme = "dark"
+    : document.documentElement.dataset.theme = "light";
+}
+
 document.addEventListener("DOMContentLoaded", main);
+colorScheme.addEventListener("change", setColorScheme);
