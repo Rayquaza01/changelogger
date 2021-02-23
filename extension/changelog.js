@@ -28,7 +28,7 @@ async function main() {
         name.append(link);
         let version = document.createElement("span");
         version.className = "version";
-        version.innerText = item.version;
+        version.innerText = `- ${item.version}`;
         name.append(version);
         let changelog = document.createElement("blockquote");
         changelog.className = "changelog";
