@@ -5,7 +5,7 @@ const theme = document.getElementById("theme");
 const ignore_no_changelogs = document.getElementById("ignore_no_changelogs");
 
 async function load() {
-    const res = await browser.storage.local.get("options");
+    const res = await browser.storage.sync.get("options");
     if (res.options.theme === "dark") {
         document.documentElement.dataset.theme = "dark";
     }
@@ -17,7 +17,7 @@ async function load() {
 }
 
 async function save() {
-    await browser.storage.local.set({
+    await browser.storage.sync.set({
         options: {
             badge: JSON.parse(badge.value),
             notification: JSON.parse(notification.value),
