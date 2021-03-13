@@ -3,11 +3,6 @@
   "name": "Changelogger",
   "version": "1.0.6",
   "description": "Gets changelogs for updated addons",
-  "applications": {
-    "gecko": {
-      "id": "changelogger@r01"
-    }
-  },
   "icons": {
     "48": "icons/icon-48.png",
     "96": "icons/icon-96.png"
