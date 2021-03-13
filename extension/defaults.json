@@ -1,7 +1,7 @@
 {
     "options": {
         "badge": true,
-        "notification": false,
+        "notification": true,
         "max": 10,
         "ignore_no_changelogs": false
     },
