@@ -1,41 +1,22 @@
 :root {
     --body-background-color: #ffffff;
-    --item-border-color: #000000;
-    --font-color: #000000;
-    --link-color: #000000;
-    --input-color: #1e88e5;
-    --input-text-color: #ffffff;
+    --font-color: #202023;
+    --link-color: #202023;
 }
 
 [data-theme="dark"] {
-    --body-background-color: #292929;
-    --item-border-color: #757575;
+    --body-background-color: #202023;
     --font-color: #ffffff;
     --link-color: #ffffff;
-    --input-color: #1e88e5;
-    --input-text-color: #ffffff;
 }
 
 body {
     background-color: var(--body-background-color);
     color: var(--font-color);
-    font-family: sans-serif;
-    font-size: 10px;
 }
 
-select,
-input {
+input, select {
     width: 15%;
-    padding: 5px 5px;
-    border: none;
-    background-color: var(--input-color);
-    color: var(--input-text-color);
-}
-
-div {
-    border: 1px solid var(--item-border-color);
-    margin: 5px;
-    padding: 5px;
 }
 
 a {
@@ -43,11 +24,14 @@ a {
     text-decoration: none;
 }
 
-h1 {
-    margin: 5px;
+p {
+    text-align: center;
 }
 
 h3 {
-    text-align: center;
-    color: var(--font-color);
-}
+    margin-block-start: 2.5rem;
+  }
+  
+h3:first-of-type {
+    margin-block-start: 1rem;
+  }
