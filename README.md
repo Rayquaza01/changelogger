@@ -7,18 +7,27 @@ How to use:
  3. When an extension updates, Changelogger will fetch its changelog and place it in the popup.
 
 Options:
- * Badge (True or False) - whether to display a badge on the toolbar icon when an extension updates.
+ * Badge (True or False) - Should the icon badge be updated when an extension is updated?
  * Notification (True or False) - whether to create a notification when an extension updates.
- * Max (number) - How many changelogs to save at a time
- * Theme (Light or Dark) - whether to use a light or dark theme
- * Ignore updates without changelogs - whether to ignore updates that don't have changelogs
+ * Max (number) - Max number of changelogs to store at once.
+ * Ignore updates without changelogs (True or False) - Should updates with no changelogs be ignored?
 
 Permissions:
  * management - required to detect when any extension updates
  * storage - required to save changelogs
  * notifications - required to notify user when any extension updates
  * https://addons.mozilla.org/api/v3/addons/addon/\* - required to fetch changelog from addons.mozilla.org API
- * webRequest - required to make web request to AMO API
+
+## What counts as an update?
+Changelogger triggers when an extension is installed or updated. It then checks if the installed version is the latest version on addons.mozilla.org.
+ * If it is, it tries to fetch the changelog from AMO.
+ * If it isn't (or if it's a self distributed addon that's not available on AMO), it does not look for a changelog.
+This way, you can manually install older or development versions of extensions without triggering Changelogger.
+
+Changelogger looks for changelogs in your browser's locale, and falls back to the default locale for the extension.
+
+## "No Changelog found for this version"
+Updates will be logged by Changelogger even if there was no changelog included with the update. You can change this by enabling "Ignore Updates Without Changelogs" in the options.
 
 Adknowledgements:
  * Icons from [Material Design Icons](https://materialdesignicons.com/) ([OFL 1.1](http://scripts.sil.org/OFL))

@@ -1,9 +1,9 @@
 export interface OptionsInterface {
     /** Should the icon badge be updated when an extension is updated? */
     badge: boolean;
-    /** Should a notification be created when an extension is updated */
+    /** Should a notification be created when an extension is updated? */
     notification: boolean;
-    /** Max number of changelogs to store at once */
+    /** Max number of changelogs to store at once. */
     max: number;
     /** Should updates with no changelogs be ignored? */
     ignore_no_changelogs: boolean;

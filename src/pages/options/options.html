@@ -7,6 +7,7 @@
   <body>
     <div>
       <h3>Badge:</h3>
+      <p>Should the icon badge be updated when an extension is updated?</p>
       <select id="badge">
         <option value="true">True</option>
         <option value="false">False</option>
@@ -14,6 +15,7 @@
     </div>
     <div>
       <h3>Notification:</h3>
+      <p>Should a notification be created when an extension is updated?</p>
       <select id="notification">
         <option value="true">True</option>
         <option value="false">False</option>
@@ -21,15 +23,16 @@
     </div>
     <div>
       <h3>Max:</h3>
+      <p>Max number of changelogs to store at once.</p>
       <input type="number" id="max" min="1" />
     </div>
     <div>
       <h3>Ignore Updates Without Changelogs:</h3>
+      <p>Should updates with no changelogs be ignored?</p>
       <select id="ignore_no_changelogs">
         <option value="true">True</option>
         <option value="false">False</option>
       </select>
     </div>
-    <!-- <p><a href="docs/help.html" target="_blank">Help</a></p> -->
   </body>
 </html>
