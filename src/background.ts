@@ -1,12 +1,12 @@
 import { Semaphore } from "./Semaphore";
 import { browser, Management, Runtime } from "webextension-polyfill-ts";
 import { getDetails } from "./AMO/getDetails";
-import { Options } from "./Options";
-import { Changelog } from "./Changelog";
+import { Options } from "./OptionsInterface";
+import { Changelog } from "./ChangelogInterface";
 
 const STORAGE_SEMAPHORE = new Semaphore();
 
-async function setup(info: Runtime.OnInstalledDetailsType ) {
+async function setup(info: Runtime.OnInstalledDetailsType) {
     const resLocal = await browser.storage.local.get();
     const resSync = await browser.storage.sync.get();
     if (Object.prototype.hasOwnProperty.call(resLocal, "options")) {
@@ -18,8 +18,7 @@ async function setup(info: Runtime.OnInstalledDetailsType ) {
     browser.storage.sync.set({ options });
 
     if (!Array.isArray(resLocal.changelogs)) {
-        resLocal.changelogs = [];
-        await browser.storage.local.set({ changelogs: resLocal.changelogs });
+        await browser.storage.local.set({ changelogs: [] });
     }
 
     if (info.reason === "install" || info.reason === "update") {
@@ -33,12 +32,14 @@ async function setup(info: Runtime.OnInstalledDetailsType ) {
 }
 
 async function getChangelog(info: Partial<Management.ExtensionInfo>) {
-    if (info.installType === "development") {
-        return;
-    }
+    // if (info.installType === "development") {
+    //     return;
+    // }
 
-    const details = await getDetails(info.id);
+    const details = await getDetails(info.id ?? "");
     const opts = new Options((await browser.storage.sync.get()).options);
+
+    console.log(details.name);
 
     if (info.version === details.current_version.version) {
         let releaseNotes: string;
@@ -53,7 +54,7 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>) {
         }
 
         const item: Changelog = {
-            id: info.id,
+            id: info.id ?? "",
             version: details.current_version.version,
             icon: details.icon_url.split("?")[0],
             name: details.name,

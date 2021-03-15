@@ -37,7 +37,7 @@ export class Semaphore {
                 return;
             }
 
-            this.waitlist.shift().resolve();
+            this.waitlist.shift()?.resolve();
         }
     }
 }
