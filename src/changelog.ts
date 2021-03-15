@@ -1,7 +1,8 @@
 require("./changelog.css");
 import { browser } from "webextension-polyfill-ts";
+import { setColorScheme } from "./colorscheme/setColorScheme";
 
-const push = document.getElementById("push");
+const push = document.getElementById("push") as HTMLDivElement;
 const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 async function main() {
@@ -10,8 +11,7 @@ async function main() {
     setColorScheme(colorScheme);
     if (resLocal.changelogs.length === 0) {
         // message if no changelogs are saved yet
-        push.innerText =
-            "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated.";
+        push.innerText = "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated.";
     }
     const frag = document.createDocumentFragment();
 
@@ -48,9 +48,7 @@ async function main() {
         links.map(link => {
             const raw = decodeURIComponent(link.href);
             if (raw.startsWith("https://outgoing.prod.mozaws.net")) {
-                link.href = raw.match(
-                    /https?:\/\/outgoing\.prod\.mozaws\.net\/.*\/(https?:\/\/.*)/
-                )[1];
+                link.href = (raw.match(/https?:\/\/outgoing\.prod\.mozaws\.net\/.*\/(https?:\/\/.*)/) ?? [])[1];
             }
             return link;
         });
@@ -64,10 +62,6 @@ async function main() {
     push.appendChild(frag);
 }
 
-function setColorScheme(e) {
-    e.matches ? document.documentElement.dataset.theme = "dark"
-        : document.documentElement.dataset.theme = "light";
-}
 
 document.addEventListener("DOMContentLoaded", main);
 colorScheme.addEventListener("change", setColorScheme);

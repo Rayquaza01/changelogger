@@ -1,10 +1,11 @@
 require("./options.css");
 import { browser } from "webextension-polyfill-ts";
+import { setColorScheme } from "./colorscheme/setColorScheme";
 
-const badge = document.getElementById("badge");
-const notification = document.getElementById("notification");
-const max = document.getElementById("max");
-const ignore_no_changelogs = document.getElementById("ignore_no_changelogs");
+const badge = document.getElementById("badge") as HTMLSelectElement;
+const notification = document.getElementById("notification") as HTMLSelectElement;
+const max = document.getElementById("max") as HTMLInputElement;
+const ignore_no_changelogs = document.getElementById("ignore_no_changelogs") as HTMLSelectElement;
 const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 async function load() {
@@ -15,8 +16,8 @@ async function load() {
     ignore_no_changelogs.value = res.options.ignore_no_changelogs;
 }
 
-async function save() {
-    await browser.storage.sync.set({
+function save() {
+    browser.storage.sync.set({
         options: {
             badge: JSON.parse(badge.value),
             notification: JSON.parse(notification.value),
@@ -24,11 +25,6 @@ async function save() {
             ignore_no_changelogs: JSON.parse(ignore_no_changelogs.value)
         }
     });
-}
-
-function setColorScheme(e) {
-    e.matches ? document.documentElement.dataset.theme = "dark"
-        : document.documentElement.dataset.theme = "light";
 }
 
 setColorScheme(colorScheme);

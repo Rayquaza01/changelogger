@@ -1,37 +1,37 @@
 :root {
-    --body-background-color: #ffffff;
-    --font-color: #202023;
-    --link-color: #202023;
+  --body-background-color: #ffffff;
+  --font-color: #202023;
+  --link-color: #202023;
 }
 
 [data-theme="dark"] {
-    --body-background-color: #202023;
-    --font-color: #ffffff;
-    --link-color: #ffffff;
+  --body-background-color: #202023;
+  --font-color: #ffffff;
+  --link-color: #ffffff;
 }
 
 body {
-    background-color: var(--body-background-color);
-    color: var(--font-color);
+  background-color: var(--body-background-color);
+  color: var(--font-color);
 }
 
 input, select {
-    width: 15%;
+  width: 15%;
 }
 
 a {
-    color: var(--link-color);
-    text-decoration: none;
+  color: var(--link-color);
+  text-decoration: none;
 }
 
 p {
-    text-align: center;
+  text-align: center;
 }
 
 h3 {
-    margin-block-start: 2.5rem;
-  }
-  
+  margin-block-start: 2.5rem;
+}
+
 h3:first-of-type {
-    margin-block-start: 1rem;
-  }
+  margin-block-start: 1rem;
+}
