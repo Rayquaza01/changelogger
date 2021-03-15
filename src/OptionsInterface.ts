@@ -16,9 +16,10 @@ export class Options implements OptionsInterface {
     ignore_no_changelogs: boolean;
 
     constructor(opts: Partial<OptionsInterface>) {
+        opts = opts ?? {};
         this.badge = opts.badge ?? true;
         this.notification = opts.notification ?? true;
         this.max = opts.max ?? 10;
-        this.ignore_no_changelogs = this.ignore_no_changelogs ?? false;
+        this.ignore_no_changelogs = opts.ignore_no_changelogs ?? false;
     }
 }
