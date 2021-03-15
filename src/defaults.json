@@ -1,9 +1,0 @@
-{
-    "options": {
-        "badge": true,
-        "notification": true,
-        "max": 10,
-        "ignore_no_changelogs": false
-    },
-    "changelogs": []
-}
