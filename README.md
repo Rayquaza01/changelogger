@@ -1,6 +1,9 @@
 # changelogger
 A Firefox extension that gets changelogs for other Firefox extensions.
 
+[![](https://img.shields.io/github/v/release/Rayquaza01/changelogger?label=github)](https://github.com/Rayquaza01/changelogger)
+[![](https://img.shields.io/amo/v/changelogger)](https://addons.mozilla.org/en-US/firefox/addon/changelogger/)
+
 How to use:
  1. Install Changelogger.
  2. Wait for extensions to update or install new extensions.
