@@ -7,25 +7,16 @@ import { Changelog } from "./ChangelogInterface";
 const STORAGE_SEMAPHORE = new Semaphore();
 
 async function setup(info: Runtime.OnInstalledDetailsType) {
+    const resLocal = await browser.storage.local.get();
     const resSync = await browser.storage.sync.get();
 
-    const options = new Options(resSync.options);
-    browser.storage.sync.set({ options });
-
-    // Get lock for local storage before initializing it
-    // So that getChangelog can't access it before its initialized
-    await STORAGE_SEMAPHORE.getLock();
-
-    const resLocal = await browser.storage.local.get();
     if (Object.prototype.hasOwnProperty.call(resLocal, "options")) {
         resSync.options = resLocal.options;
         await browser.storage.local.remove("options");
     }
-    if (!Array.isArray(resLocal.changelogs)) {
-        await browser.storage.local.set({ changelogs: [] });
-    }
 
-    STORAGE_SEMAPHORE.releaseLock();
+    const options = new Options(resSync.options);
+    browser.storage.sync.set({ options });
 
     if (info.reason === "install" || info.reason === "update") {
         const manifest = browser.runtime.getManifest();
@@ -76,9 +67,9 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>) {
         await STORAGE_SEMAPHORE.getLock();
         // console.log("enter critical region");
 
-        const changelogs: Changelog[] = (await browser.storage.local.get())
-            .changelogs
-            .filter((clItem: Changelog) => clItem.id !== item.id || clItem.version !== item.version);
+        const changelogs: Changelog[] =
+            ((await browser.storage.local.get()).changelogs ?? []) // default to empty array if not initialized
+                .filter((clItem: Changelog) => clItem.id !== item.id || clItem.version !== item.version);
         changelogs.unshift(item);
         while (changelogs.length > opts.max) {
             changelogs.pop();
