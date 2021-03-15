@@ -7,23 +7,29 @@ import { Changelog } from "./ChangelogInterface";
 const STORAGE_SEMAPHORE = new Semaphore();
 
 async function setup(info: Runtime.OnInstalledDetailsType) {
-    const resLocal = await browser.storage.local.get();
     const resSync = await browser.storage.sync.get();
-    if (Object.prototype.hasOwnProperty.call(resLocal, "options")) {
-        resSync.options = resLocal.options;
-        await browser.storage.local.remove("options");
-    }
 
     const options = new Options(resSync.options);
     browser.storage.sync.set({ options });
 
+    // Get lock for local storage before initializing it
+    // So that getChangelog can't access it before its initialized
+    await STORAGE_SEMAPHORE.getLock();
+
+    const resLocal = await browser.storage.local.get();
+    if (Object.prototype.hasOwnProperty.call(resLocal, "options")) {
+        resSync.options = resLocal.options;
+        await browser.storage.local.remove("options");
+    }
     if (!Array.isArray(resLocal.changelogs)) {
         await browser.storage.local.set({ changelogs: [] });
     }
 
+    STORAGE_SEMAPHORE.releaseLock();
+
     if (info.reason === "install" || info.reason === "update") {
         const manifest = browser.runtime.getManifest();
-        await getChangelog({
+        getChangelog({
             name: manifest.name,
             id: "changelogger@r01",
             version: manifest.version
@@ -36,10 +42,13 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>) {
     //     return;
     // }
 
-    const details = await getDetails(info.id ?? "");
     const opts = new Options((await browser.storage.sync.get()).options);
 
-    console.log(details.name);
+    const details = await getDetails(info.id);
+    if (details === null) {
+        console.log("Could not find extension %s", info.id);
+        return;
+    }
 
     if (info.version === details.current_version.version) {
         let releaseNotes: string;
@@ -65,6 +74,7 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>) {
         // Request access to critical region
         // Block until available
         await STORAGE_SEMAPHORE.getLock();
+        // console.log("enter critical region");
 
         const changelogs: Changelog[] = (await browser.storage.local.get())
             .changelogs
@@ -77,6 +87,7 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>) {
 
         // Release critical region
         // Changelog list in storage.local should not be updated after this point
+        // console.log("exit critical region");
         STORAGE_SEMAPHORE.releaseLock();
 
         if (opts.notification) {
