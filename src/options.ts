@@ -1,8 +1,11 @@
+require("./options.css");
+import { browser } from "webextension-polyfill-ts";
+
 const badge = document.getElementById("badge");
 const notification = document.getElementById("notification");
 const max = document.getElementById("max");
 const ignore_no_changelogs = document.getElementById("ignore_no_changelogs");
-const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 async function load() {
     const res = await browser.storage.sync.get("options");
@@ -25,7 +28,7 @@ async function save() {
 
 function setColorScheme(e) {
     e.matches ? document.documentElement.dataset.theme = "dark"
-    : document.documentElement.dataset.theme = "light";
+        : document.documentElement.dataset.theme = "light";
 }
 
 setColorScheme(colorScheme);
