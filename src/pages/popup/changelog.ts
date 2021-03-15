@@ -1,6 +1,6 @@
 require("./changelog.css");
 import { browser } from "webextension-polyfill-ts";
-import { setColorScheme } from "./colorscheme/setColorScheme";
+import { setColorScheme } from "../../colorscheme/setColorScheme";
 
 const push = document.getElementById("push") as HTMLDivElement;
 const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");

@@ -10,8 +10,8 @@ module.exports = {
     mode: "development",
     entry: {
         background: __dirname + "/src/background.ts",
-        options: __dirname + "/src/options.ts",
-        changelog: __dirname + "/src/changelog.ts"
+        options: __dirname + "/src/pages/options/options.ts",
+        changelog: __dirname + "/src/pages/popup/changelog.ts"
     },
     devtool: "source-map",
     output: {
@@ -37,13 +37,13 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "src/options.html",
+            template: "src/pages/options/options.html",
             filename: "options.html",
             chunks: ["options"],
             cache: false
         }),
         new HtmlWebpackPlugin({
-            template: "src/changelog.html",
+            template: "src/pages/popup/changelog.html",
             filename: "changelog.html",
             chunks: ["changelog"],
             cache: false

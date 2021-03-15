@@ -1,6 +1,6 @@
 require("./options.css");
 import { browser } from "webextension-polyfill-ts";
-import { setColorScheme } from "./colorscheme/setColorScheme";
+import { setColorScheme } from "../../colorscheme/setColorScheme";
 
 const badge = document.getElementById("badge") as HTMLSelectElement;
 const notification = document.getElementById("notification") as HTMLSelectElement;
