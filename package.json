@@ -6,7 +6,7 @@
   "scripts": {
     "build:development": "webpack --config webpack.config.js --watch --mode=development",
     "build:production": "webpack --config webpack.config.js --mode=production",
-    "build:extension": "web-ext build -s ./dist",
+    "build:extension": "web-ext build -s ./dist --overwrite-dest",
     "firefox": "web-ext run -s ./dist",
     "lint:extension": "web-ext lint -s ./dist"
   },
