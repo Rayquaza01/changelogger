@@ -19,6 +19,12 @@ export class Semaphore {
     private lock = false;
     private waitlist: Record<"resolve" | "reject", () => void>[] = [];
 
+    /**
+     * Requests to get the lock.
+     * If the lock is available, a resolved promise will be returned.
+     * If the lock is not available yet, a pending promise will be returned to
+     * be resolved when the lock is available.
+     */
     getLock(): Promise<void> {
         if (!this.lock) {
             this.lock = true;
@@ -30,6 +36,11 @@ export class Semaphore {
         }
     }
 
+    /**
+     * Release the lock and give it to the next item on the waitlist.
+     * You should release the lock after finishing with the critical region
+     * to avoid starving the items on the waitlist.
+     */
     releaseLock(): void {
         if (this.lock) {
             if (this.waitlist.length === 0) {

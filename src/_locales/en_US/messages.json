@@ -24,5 +24,9 @@
         "example": "v1.0.6"
       }
     }
+  },
+  "noChangelogsYet": {
+    "message": "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated.",
+    "description": "Message for if no changelogs are saved yet"
   }
 }

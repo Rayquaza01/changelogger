@@ -1,6 +1,10 @@
 import { AddonDetails } from "./AddonResponse";
 import { browser } from "webextension-polyfill-ts";
 
+/**
+ * Get details about an addon from AMO.
+ * @param id The ID of the extension. `null` will be returned if this is not a valid ID.
+ */
 export async function getDetails(id?: string): Promise<AddonDetails | null> {
     if (id === undefined) {
         return null;

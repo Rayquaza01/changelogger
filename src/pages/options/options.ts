@@ -8,7 +8,10 @@ const max = document.getElementById("max") as HTMLInputElement;
 const ignore_no_changelogs = document.getElementById("ignore_no_changelogs") as HTMLSelectElement;
 const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-async function load() {
+/**
+ * Load the options from storage into the DOM
+ */
+async function load(): Promise<void> {
     const res = await browser.storage.sync.get("options");
     badge.value = res.options.badge;
     notification.value = res.options.notification;
@@ -16,7 +19,10 @@ async function load() {
     ignore_no_changelogs.value = res.options.ignore_no_changelogs;
 }
 
-function save() {
+/**
+ * Save the options from the DOM into storage
+ */
+function save(): void {
     browser.storage.sync.set({
         options: {
             badge: JSON.parse(badge.value),
