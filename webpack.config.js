@@ -1,12 +1,13 @@
 /* eslint-disable */
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const copyWebpackPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-    // mode: "production",
-    mode: "development",
     entry: {
         background: __dirname + "/src/background.ts",
         options: __dirname + "/src/pages/options/options.ts",
@@ -26,7 +27,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"]
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
             }
         ]
     },
@@ -35,6 +36,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: "src/pages/options/options.html",
             filename: "options.html",
@@ -45,7 +47,7 @@ module.exports = {
             filename: "changelog.html",
             chunks: ["changelog"],
         }),
-        new copyWebpackPlugin({
+        new CopyWebpackPlugin({
             patterns: [
                 { from: "src/manifest.json" },
                 {
@@ -64,7 +66,11 @@ module.exports = {
         })
     ],
     optimization: {
-        usedExports: true
+        usedExports: true,
+        minimizer: [
+            new CssMinimizerWebpackPlugin(),
+            new TerserWebpackPlugin()
+        ]
     },
     externals: {
         "webextension-polyfill": "browser",
