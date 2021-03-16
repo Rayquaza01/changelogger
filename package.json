@@ -4,9 +4,9 @@
   "description": "Gets changelogs for updated addons",
   "main": "index.js",
   "scripts": {
-    "build:assets": "cpx src/**/*.{json,png,svg} dist",
-    "build:devbundle": "parcel watch src/**/*.html --target browser --no-hmr",
-    "build:dev": "run-p build:assets build:devbundle"
+    "build:watch": "webpack --config webpack.config.js --watch",
+    "build": "webpack --config webpack.config.js",
+    "firefox": "web-ext run -s ./dist"
   },
   "repository": {
     "type": "git",
@@ -35,8 +35,5 @@
   },
   "dependencies": {
     "webextension-polyfill-ts": "^0.25.0"
-  },
-  "browserslist": [
-    "Firefox 78"
-  ]
+  }
 }
