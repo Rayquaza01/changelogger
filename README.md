@@ -15,11 +15,13 @@ Options:
  * Max (number) - Max number of changelogs to store at once.
  * Ignore updates without changelogs (True or False) - Should updates with no changelogs be ignored?
 
+The colorscheme will be automatically set (light or dark) based on your operating system's colorscheme setting.
+
 Permissions:
  * management - required to detect when any extension updates
  * storage - required to save changelogs
  * notifications - required to notify user when any extension updates
- * https://addons.mozilla.org/api/v3/addons/addon/\* - required to fetch changelog from addons.mozilla.org API
+ * https://addons.mozilla.org/api/v4/addons/addon/\* - required to fetch changelog from addons.mozilla.org API
 
 ## What counts as an update?
 Changelogger triggers when an extension is installed or updated. It then checks if the installed version is the latest version on addons.mozilla.org.
@@ -34,4 +36,4 @@ Updates will be logged by Changelogger even if there was no changelog included w
 
 Adknowledgements:
  * Icons from [Material Design Icons](https://materialdesignicons.com/) ([OFL 1.1](http://scripts.sil.org/OFL))
- * Uses Mozilla's [Addons Server API](https://addons-server.readthedocs.io/en/2018.05.17/topics/api/addons.html)
+ * Uses Mozilla's [Addons Server API](https://addons-server.readthedocs.io/en/latest/topics/api/v4_frozen/addons.html)
