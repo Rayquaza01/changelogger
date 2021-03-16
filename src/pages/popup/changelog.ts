@@ -2,6 +2,7 @@ require("./changelog.css");
 import { browser } from "webextension-polyfill-ts";
 import { setColorScheme } from "../../colorscheme/setColorScheme";
 
+const settings = document.getElementById("settings") as HTMLDivElement;
 const push = document.getElementById("push") as HTMLDivElement;
 const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -80,3 +81,4 @@ async function main(): Promise<void> {
 
 document.addEventListener("DOMContentLoaded", main);
 colorScheme.addEventListener("change", setColorScheme);
+settings.addEventListener("click", () => browser.runtime.openOptionsPage());

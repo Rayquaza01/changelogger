@@ -36,6 +36,10 @@ img {
     color: var(--version-font-color);
 }
 
+.link:hover {
+  text-decoration: underline;
+}
+
 .link:before,
 .link:after {
     content: "\0000a0";
@@ -63,4 +67,23 @@ img {
 a {
     color: var(--link-color);
     text-decoration: none;
+}
+
+#settings {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+}
+
+#settings:hover {
+  background-color: rgba(12, 12, 13, 0.1);
+}
+
+svg > path {
+  fill: var(--version-font-color);
 }
