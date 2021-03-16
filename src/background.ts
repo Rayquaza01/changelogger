@@ -17,10 +17,10 @@ async function setup(info: Runtime.OnInstalledDetailsType) {
     if (Object.prototype.hasOwnProperty.call(resLocal, "options")) {
         resSync.options = resLocal.options;
         await browser.storage.local.remove("options");
-    }
 
-    const options = new Options(resSync.options);
-    browser.storage.sync.set({ options });
+        const options = new Options(resSync.options);
+        browser.storage.sync.set({ options });
+    }
 
     if (info.reason === "install" || info.reason === "update") {
         const manifest = browser.runtime.getManifest();
