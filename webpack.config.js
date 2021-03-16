@@ -3,7 +3,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const copyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
 
 module.exports = {
     // mode: "production",
@@ -40,13 +39,11 @@ module.exports = {
             template: "src/pages/options/options.html",
             filename: "options.html",
             chunks: ["options"],
-            cache: false
         }),
         new HtmlWebpackPlugin({
             template: "src/pages/popup/changelog.html",
             filename: "changelog.html",
             chunks: ["changelog"],
-            cache: false
         }),
         new copyWebpackPlugin({
             patterns: [
@@ -60,14 +57,16 @@ module.exports = {
                     from: "src/_locales/",
                     to: "_locales",
                     toType: "dir"
-                }
+                },
+                { from: "node_modules/webextension-polyfill/dist/browser-polyfill.min.js" },
+                { from: "node_modules/webextension-polyfill/dist/browser-polyfill.min.js.map" }
             ]
         })
     ],
     optimization: {
         usedExports: true
-    //     splitChunks: {
-    //         chunks: "all"
-    //     }
+    },
+    externals: {
+        "webextension-polyfill": "browser",
     }
 }
