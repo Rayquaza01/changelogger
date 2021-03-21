@@ -1,5 +1,5 @@
 export interface OptionsInterface {
-    /** Should the icon badge be updated when an extension is updated? */
+    /** Should the icon badge be shown when an extension is updated? */
     badge: boolean;
     /** Should a notification be created when an extension is updated? */
     notification: boolean;

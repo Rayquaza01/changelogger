@@ -10,7 +10,7 @@ A Firefox extension that gets changelogs for other Firefox extensions.
  3. When an extension updates, Changelogger will fetch its changelog and place it in the popup.
 
 ## Options:
- * Badge (True or False) - Should the icon badge be updated when an extension is updated?
+ * Badge (True or False) - Should the icon badge be shown when an extension is updated?
  * Notification (True or False) - whether to create a notification when an extension updates.
  * Max (number) - Max number of changelogs to store at once.
  * Ignore updates without changelogs (True or False) - Should updates with no changelogs be ignored?
