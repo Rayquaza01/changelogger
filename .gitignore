@@ -2,3 +2,6 @@
 *.swo
 Thumbs.db
 web-ext-artifacts/
+
+dist/
+node_modules/
