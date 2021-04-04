@@ -11,6 +11,9 @@ const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 const clearChangelogsButton = document.getElementById("clearChangelogsButton") as HTMLButtonElement;
 
+/**
+ * Clears the list of changelogs saved in storage
+ */
 function clearChangelogs() {
     browser.storage.local.set({ changelogs: [] });
 }
