@@ -1,4 +1,4 @@
-# Build Instructions for Changelogger 1.1.0
+# Build Instructions for Changelogger 1.1.1
 
 ## Environment
 
@@ -22,7 +22,7 @@ npm run build:production
 npm run build:extension
 ```
 
-The final output file will be `./web-ext-artifacts/changelogger-1.1.0.zip`.
+The final output file will be `./web-ext-artifacts/changelogger-1.1.1.zip`.
 
 # Development
 
