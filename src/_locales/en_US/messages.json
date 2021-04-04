@@ -25,8 +25,12 @@
       }
     }
   },
+  "noChangelogsYetTitle": {
+    "message": "No Changelogs",
+    "description": "Message title for if there are no changelogs yet."
+  },
   "noChangelogsYet": {
-    "message": "There are no saved changelogs yet. Changelogs will be added here when extensions are installed or updated.",
+    "message": "There are no saved changelogs yet.\nChangelogs will be added here when extensions are installed or updated.",
     "description": "Message for if no changelogs are saved yet"
   }
 }

@@ -1,6 +1,7 @@
 require("./changelog.css");
 import { browser } from "webextension-polyfill-ts";
 import { setColorScheme } from "../../colorscheme/setColorScheme";
+import { Changelog } from "../../ChangelogInterface";
 
 const settings = document.getElementById("settings") as HTMLDivElement;
 const push = document.getElementById("push") as HTMLDivElement;
@@ -14,10 +15,21 @@ async function main(): Promise<void> {
     const resLocal = await browser.storage.local.get();
     setColorScheme(colorScheme);
 
-    if (resLocal.changelogs.length === 0) {
-        // message if no changelogs are saved yet
-        push.innerText = browser.i18n.getMessage("noChangelogsYet");
-        return;
+    let changelogs: Changelog[] = [];
+
+    if (Array.isArray(resLocal.changelogs)) {
+        changelogs = resLocal.changelogs;
+    }
+
+    if (changelogs.length === 0) {
+        resLocal.changelogs.push({
+            id: "none",
+            version: "0.0.0",
+            icon: browser.runtime.getURL("icons/icon-96.png"),
+            name: browser.i18n.getMessage("noChangelogsYetTitle"),
+            release_notes: browser.i18n.getMessage("noChangelogsYet"),
+            url: "https://addons.mozilla.org"
+        });
     }
 
     const frag = document.createDocumentFragment();
