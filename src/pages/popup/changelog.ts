@@ -22,7 +22,7 @@ async function main(): Promise<void> {
     }
 
     if (changelogs.length === 0) {
-        resLocal.changelogs.push({
+        changelogs.push({
             id: "none",
             version: "0.0.0",
             icon: browser.runtime.getURL("icons/icon-96.png"),
@@ -34,7 +34,7 @@ async function main(): Promise<void> {
 
     const frag = document.createDocumentFragment();
 
-    for (const item of resLocal.changelogs) {
+    for (const item of changelogs) {
         // container for changelog item
         const container = document.createElement("div");
         container.className = "item";
