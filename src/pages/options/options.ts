@@ -9,6 +9,12 @@ const max = document.getElementById("max") as HTMLInputElement;
 const ignore_no_changelogs = document.getElementById("ignore_no_changelogs") as HTMLSelectElement;
 const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
+const clearChangelogsButton = document.getElementById("clearChangelogsButton") as HTMLButtonElement;
+
+function clearChangelogs() {
+    browser.storage.local.set({ changelogs: [] });
+}
+
 /**
  * Load the options from storage into the DOM
  */
@@ -38,3 +44,4 @@ setColorScheme(colorScheme);
 document.addEventListener("DOMContentLoaded", load);
 document.addEventListener("change", save);
 colorScheme.addEventListener("change", setColorScheme);
+clearChangelogsButton.addEventListener("click", clearChangelogs);
