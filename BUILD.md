@@ -2,9 +2,9 @@
 
 ## Environment
 
- * Ubuntu 20.10
- * node v14.16.0
- * npm 6.14.11
+ * Ubuntu 21.04
+ * node v14.16.1
+ * npm 6.14.12
  * Tool and library versions in package.json
 
 # Production
