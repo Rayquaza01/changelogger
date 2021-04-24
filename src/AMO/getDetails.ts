@@ -10,7 +10,7 @@ export async function getDetails(id?: string): Promise<AddonDetails | null> {
         return null;
     }
 
-    const requestURL = new URL("https://addons.mozilla.org/api/v4/addons/addon");
+    const requestURL = new URL("https://addons.thunderbird.net/api/v4/addons/addon");
     requestURL.pathname += "/" + id;
     requestURL.searchParams.append("lang", browser.i18n.getUILanguage());
 

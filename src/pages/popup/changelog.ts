@@ -28,7 +28,7 @@ async function main(): Promise<void> {
             icon: browser.runtime.getURL("icons/icon-96.png"),
             name: browser.i18n.getMessage("noChangelogsYetTitle"),
             release_notes: browser.i18n.getMessage("noChangelogsYet"),
-            url: "https://addons.mozilla.org"
+            url: "https://addons.thunderbird.net"
         });
     }
 
@@ -55,6 +55,7 @@ async function main(): Promise<void> {
         link.href = item.url;
         link.className = "link";
         link.innerText = item.name;
+        link.target = "_blank";
         name.appendChild(link);
 
         // version

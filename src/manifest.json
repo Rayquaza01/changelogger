@@ -30,7 +30,7 @@
     "management",
     "storage",
     "notifications",
-    "https://addons.mozilla.org/api/v4/addons/addon/*"
+    "https://addons.thunderbird.net/api/v4/addons/addon/*"
   ],
   "browser_specific_settings": {
     "gecko": {
