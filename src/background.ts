@@ -12,15 +12,6 @@ const STORAGE_SEMAPHORE = new Semaphore();
  */
 async function setup(info: Runtime.OnInstalledDetailsType) {
     const resLocal = await browser.storage.local.get();
-    const resSync = await browser.storage.sync.get();
-
-    if (Object.prototype.hasOwnProperty.call(resLocal, "options")) {
-        resSync.options = resLocal.options;
-        await browser.storage.local.remove("options");
-
-        const options = new Options(resSync.options);
-        browser.storage.sync.set({ options });
-    }
 
     if (info.reason === "install" || info.reason === "update") {
         const manifest = browser.runtime.getManifest();
@@ -46,7 +37,7 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>): Promise<vo
         return;
     }
 
-    const opts = new Options((await browser.storage.sync.get()).options);
+    const opts = new Options((await browser.storage.local.get()).options);
 
     const details = await getDetails(info.id);
     if (details === null) {

@@ -22,7 +22,7 @@ function clearChangelogs() {
  * Load the options from storage into the DOM
  */
 async function load(): Promise<void> {
-    const opts = new Options((await browser.storage.sync.get()).options);
+    const opts = new Options((await browser.storage.local.get()).options);
     badge.value = opts.badge.toString();
     notification.value = opts.notification.toString();
     max.value = opts.max.toString();
@@ -39,7 +39,7 @@ function save(): void {
         max: parseInt(max.value),
         ignore_no_changelogs: JSON.parse(ignore_no_changelogs.value)
     };
-    browser.storage.sync.set({ options });
+    browser.storage.local.set({ options });
 }
 
 setColorScheme(colorScheme);
