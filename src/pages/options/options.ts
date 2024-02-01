@@ -1,5 +1,5 @@
 require("./options.css");
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import { Options, OptionsInterface } from "../../OptionsInterface";
 import { setColorScheme } from "../../colorscheme/setColorScheme";
 

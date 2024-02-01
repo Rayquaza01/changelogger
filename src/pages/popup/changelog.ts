@@ -1,5 +1,5 @@
 require("./changelog.css");
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import { setColorScheme } from "../../colorscheme/setColorScheme";
 import { Changelog } from "../../ChangelogInterface";
 

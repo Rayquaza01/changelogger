@@ -1,5 +1,5 @@
 import { AddonDetails } from "./AddonResponse";
-import { browser } from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 /**
  * Get details about an addon from AMO.

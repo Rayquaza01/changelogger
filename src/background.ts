@@ -1,5 +1,5 @@
 import { Semaphore } from "./Semaphore";
-import { browser, Management, Runtime } from "webextension-polyfill-ts";
+import { browser, Management, Runtime } from "webextension-polyfill";
 import { getDetails } from "./AMO/getDetails";
 import { Options } from "./OptionsInterface";
 import { Changelog } from "./ChangelogInterface";
