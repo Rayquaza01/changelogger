@@ -105,7 +105,7 @@ async function getChangelog(info: Partial<Management.ExtensionInfo>): Promise<vo
         if (opts.notification) {
             browser.notifications.create({
                 type: "basic",
-                title: browser.i18n.getMessage("updateTitle", [info.name, info.version]),
+                title: browser.i18n.getMessage("updateTitle", [info.name ?? "", info.version]),
                 message: item.release_notes,
                 iconUrl: item.icon
             });
