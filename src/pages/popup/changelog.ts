@@ -1,11 +1,9 @@
 require("./changelog.css");
 import browser from "webextension-polyfill";
-import { setColorScheme } from "../../colorscheme/setColorScheme";
 import { Changelog } from "../../ChangelogInterface";
 
 const settings = document.getElementById("settings") as HTMLDivElement;
 const push = document.getElementById("push") as HTMLDivElement;
-const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 /**
  * Place saved changelogs into the page
@@ -13,7 +11,6 @@ const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 async function main(): Promise<void> {
     browser.browserAction.setBadgeText({ text: "" });
     const resLocal = await browser.storage.local.get();
-    setColorScheme(colorScheme);
 
     let changelogs: Changelog[] = [];
 
@@ -92,5 +89,4 @@ async function main(): Promise<void> {
 
 
 document.addEventListener("DOMContentLoaded", main);
-colorScheme.addEventListener("change", setColorScheme);
 settings.addEventListener("click", () => browser.runtime.openOptionsPage());

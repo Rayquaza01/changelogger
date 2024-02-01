@@ -1,13 +1,11 @@
 require("./options.css");
 import browser from "webextension-polyfill";
 import { Options, OptionsInterface } from "../../OptionsInterface";
-import { setColorScheme } from "../../colorscheme/setColorScheme";
 
 const badge = document.getElementById("badge") as HTMLSelectElement;
 const notification = document.getElementById("notification") as HTMLSelectElement;
 const max = document.getElementById("max") as HTMLInputElement;
 const ignore_no_changelogs = document.getElementById("ignore_no_changelogs") as HTMLSelectElement;
-const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 const clearChangelogsButton = document.getElementById("clearChangelogsButton") as HTMLButtonElement;
 
@@ -42,9 +40,6 @@ function save(): void {
     browser.storage.sync.set({ options });
 }
 
-setColorScheme(colorScheme);
-
 document.addEventListener("DOMContentLoaded", load);
 document.addEventListener("change", save);
-colorScheme.addEventListener("change", setColorScheme);
 clearChangelogsButton.addEventListener("click", clearChangelogs);
