@@ -9,37 +9,32 @@
     <form>
       <h1>Changelogger Options</h1>
       <div>
-        <h2>Badge:</h2>
-        <p>Should the icon badge be shown when an extension is updated?</p>
-        <select id="badge">
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
+        <h2>Badge</h2>
+        <label>
+          <input type="checkbox" name="badge">
+          Show badge when an extension is updated
+        </label>
       </div>
       <div>
-        <h2>Notification:</h2>
-        <p>Should a notification be created when an extension is updated?</p>
-        <select id="notification">
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
+        <h2>Notification</h2>
+        <label>
+          <input type="checkbox" name="notification">
+          Show a notification when an extension is updated
+        </label>
       </div>
       <div>
-        <h2>Max:</h2>
-        <p>Max number of changelogs to store at once.</p>
+        <h2>Maximum Number of Changelogs to Save</h2>
         <input type="number" id="max" min="1" />
       </div>
       <div>
-        <h2>Ignore Updates Without Changelogs:</h2>
-        <p>Should updates with no changelogs be ignored?</p>
-        <select id="ignore_no_changelogs">
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
+        <h2>Ignore Updates Without Changelogs</h2>
+        <label>
+          <input type="checkbox" name="ignore_no_changelogs">
+          Ignore updates without changelogs
+        </label>
       </div>
       <div>
         <h2>Clear Changelogs</h2>
-        <p>Pressing the below button will clear the list of changelogs currently stored.</p>
         <button id="clearChangelogsButton" type="button">Clear Saved Changelogs</button>
       </div>
       <div class="links">

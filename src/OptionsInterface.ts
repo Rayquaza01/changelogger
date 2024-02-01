@@ -9,17 +9,36 @@ export interface OptionsInterface {
     ignore_no_changelogs: boolean;
 }
 
-export class Options implements OptionsInterface {
-    badge: boolean;
-    notification: boolean;
-    max: number;
-    ignore_no_changelogs: boolean;
+export interface FormElements extends HTMLFormControlsCollection {
+    badge: HTMLInputElement;
+    notification: HTMLInputElement;
+    max: HTMLInputElement;
+    ignore_no_changelogs: HTMLInputElement;
+}
 
-    constructor(opts: Partial<OptionsInterface>) {
-        opts = opts ?? {};
-        this.badge = opts.badge ?? true;
-        this.notification = opts.notification ?? true;
-        this.max = opts.max ?? 10;
-        this.ignore_no_changelogs = opts.ignore_no_changelogs ?? false;
+export class Options implements OptionsInterface {
+    badge = true;
+    notification = true;
+    max = 10;
+    ignore_no_changelogs = false;
+
+    constructor(opts?: Partial<OptionsInterface>) {
+        opts ??= {};
+
+        if (typeof opts.badge === "boolean") {
+            this.badge = opts.badge;
+        }
+
+        if (typeof opts.notification === "boolean") {
+            this.notification = opts.notification;
+        }
+
+        if (typeof opts.max === "number" && opts.max > 0) {
+            this.max = opts.max;
+        }
+
+        if (typeof opts.ignore_no_changelogs === "boolean") {
+            this.ignore_no_changelogs = opts.ignore_no_changelogs;
+        }
     }
 }

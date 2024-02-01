@@ -31,8 +31,16 @@ form {
   margin: 2% 5%;
 }
 
-input, select {
-  width: 15%;
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+
+  box-sizing: border-box;
+
+  background-color: var(--button-color);
+  color: var(--color);
 }
 
 a {
@@ -53,6 +61,10 @@ h2 {
 }
 
 /* Button Styles */
+
+label {
+  cursor: pointer;
+}
 
 button,
 label.radio > span {
